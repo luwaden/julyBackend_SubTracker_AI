@@ -1,0 +1,17 @@
+// The request (req) objects represent everything the clients sends to the server, it carries the intent and neccessary details for the server to know what to do 
+
+// KEY parts of req
+// -URL Path: where the client is going. e.g. /users,  /products 
+
+// HTTP methods : GET, PUT, DELETE, POST
+// Headers:(req.headers) these are metadata that comes along with a request , device info, auth tokens, 
+// BODY:(req.body) This is the data itself. i.e the data sent by the client  e.g. name, password
+// PARAMS/QUERY: (req.params) This is making a request for a particular data through path or filter etc 
+
+// RESPONSE object reperesent the answer the server sends back to the client after processing the request. 
+// A server must send a response, or the clints hangs waiting indefinetly 
+
+// Status code: the 3-didgit standard result code 
+// 200 OK- success, 201 created- the data has been created, 400 Bad request- Clinet invalid data, 404 not found- what you requested for does not exist , 500- Internal server error 
+// Headers: information about the payload being returned e.g. content-type:, Application/json
+// Body: The actual paylod that is being sent back to the client as response to the request  e.g, 
