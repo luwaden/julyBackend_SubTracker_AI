@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
 import {JWT_SECRET, JWT_EXPIRES_IN} from "../config/env.js"
 import Session from "../model/session.model.js"
+import {errorMessage} from "../utils/errorMessage.js"
 
 export const signUp = async(req, res, next)=>{
     const session = await mongoose.startSession();
@@ -11,6 +12,10 @@ export const signUp = async(req, res, next)=>{
 
     try {
         const {name, email, password} = req.body;
+            if (!name || !email || !password) 
+                
+         { const error = new Error( "Name, email and password are required" ); error.statusCode = 400; throw error; }
+
         const existingUser = await User.findOne({ email});
 
         if (existingUser){
@@ -51,6 +56,10 @@ export const signUp = async(req, res, next)=>{
 export const signIn = async(req, res, next )=>{
     try{
         const {email, password} = req.body
+
+    if (!email || !password) 
+     { const error = new Error( "Invalid Credentials" ); error.statusCode = 400; throw error; }
+
         const user =await User.findOne({email}).select("+password");
         if(!user){
             const error = new Error("user not found")
@@ -60,7 +69,7 @@ export const signIn = async(req, res, next )=>{
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if(!isPasswordValid){
-            const error = new Error("Invalid Password")
+            const error = new Error("Invalid Credentials")
             error.statusCode = 404;
             throw error
         }
@@ -82,5 +91,32 @@ export const signIn = async(req, res, next )=>{
     catch (error){
         next (error)
 
+    }
+}
+
+export const signOut = async (req, res, next)=>{
+    try {
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader || authHeader.startsWith("Bearer ")){
+             next(errorMessage("No token provided"))
+        }
+
+        const token = authHeader.split(" ")[1]
+
+        const deletedSession = await Session.findOneAndDelete({token});
+        if (!deletedSession){
+            return res.status(200).json({
+                success: true,
+                message: "Already signed out "
+            })
+        }
+        return res.status(200).json({
+                success: true,
+                message: "User Signed out successfully"
+            })
+
+    } catch (error) {
+        next(error)
     }
 }
