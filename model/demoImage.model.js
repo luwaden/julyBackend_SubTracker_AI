@@ -3,7 +3,7 @@ import  mongoose from "mongoose"
 const demoImageSchema = new mongoose.Schema(
     {
         fileName:{
-            type:Stirng,
+            type:String,
             required:true
          },
 

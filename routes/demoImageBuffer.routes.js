@@ -6,6 +6,6 @@ import { uploadImageBuffer } from "../controller/demoImageBuffer.controller.js";
 
 const demoImageBufferRouter =  Router()
 
-demoImageBufferRouter.post("/", protect, upload, uploadImageBuffer)
+demoImageBufferRouter.post("/", protect, upload.single("image"), uploadImageBuffer)
 
 export default demoImageBufferRouter

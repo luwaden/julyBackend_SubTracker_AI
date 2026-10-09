@@ -1,5 +1,5 @@
-import DemoImage from "../model/demoImage.model"
-import { errorMessage } from "../utils/errorMessage"
+import DemoImage from "../model/demoImage.model.js"
+import { errorMessage } from "../utils/errorMessage.js"
 
 export const uploadImageBuffer = async(req, res, next)=>{
     try {

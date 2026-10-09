@@ -10,7 +10,7 @@ import authRouter from "./routes/auth.routes.js"
 import connectToDataBase from "./database/mongodb.js"
 import errorMiddleware from "./middleware/error.middleware.js"
 import subRouter from "./routes/subscription.routes.js"
-import demoImageBufferRouter from "./routes/demoImageBuffer.route.js"
+import demoImageBufferRouter from "./routes/demoImageBuffer.routes.js"
 
 
 const app = express()
