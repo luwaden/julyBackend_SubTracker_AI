@@ -10,6 +10,7 @@ import authRouter from "./routes/auth.routes.js"
 import connectToDataBase from "./database/mongodb.js"
 import errorMiddleware from "./middleware/error.middleware.js"
 import subRouter from "./routes/subscription.routes.js"
+import demoImageBufferRouter from "./routes/demoImageBuffer.route.js"
 
 
 const app = express()
@@ -44,6 +45,7 @@ app.get('/greeting', (req, res)=>{
 
 app.use("/api/v1/users", authRouter)
 app.use("/api/v1/subscription", subRouter)
+app.use("/api/v1/demoImage", demoImageBufferRouter)
 
 
 app.use(errorMiddleware)

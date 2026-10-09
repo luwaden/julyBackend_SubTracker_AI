@@ -74,7 +74,7 @@ export const signIn = async(req, res, next )=>{
             throw error
         }
 
-        const token = jwt.sign({userId: user.Id}, JWT_SECRET, {expiresIn: JWT_EXPIRES_IN})
+        const token = jwt.sign({userId: user._id}, JWT_SECRET, {expiresIn: JWT_EXPIRES_IN})
          const expiresAt = new Date(Date.now() + 7*24*60*60*1000);
          await Session.create({userId: user._id, token, expiresAt})
 
